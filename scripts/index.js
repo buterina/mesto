@@ -22,13 +22,6 @@ function formSubmitHandler(event) {
    profileName.textContent = popupName.value;
    profileAbout.textContent = popupAbout.value;
    popup.classList.remove('popup_opened');
-
-
-  // Получите значение полей jobInput и nameInput из свойства value
-
-    // Выберите элементы, куда должны быть вставлены значения полей
-
-    // Вставьте новые значения с помощью textContent
 }
 
 popupOpenButton.addEventListener('click', openPopup);
