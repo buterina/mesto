@@ -2,52 +2,102 @@
 <html lang="ru">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">q
-    <title>Mesto</title>
-    <link rel="stylesheet" href="pages/index.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="pages/index.css">
 </head>
 
 <body>
-    <div class="page">
-        <header class="header">
-            <img class="logo" src="images/Mesto-logo.svg" alt="Логотип Место">
-        </header>
+  <div class="page">
+    <header class="header">
+      <img class="logo" src="images/Mesto-logo.svg" alt="Логотип Место">
+    </header>
 
-        <main>
-            <section class="profile">
-                <img class="profile__avatar" src="" alt="Фотография пользователя">
-                <div class="profile__info">
-                    <h1 class="profile__name">Жак-Ив Кусто</h1>
-                    <button class="profile__edit-button"></button>
-                    <p class="profile__bio">Исследователь океана</p>
-                </div>
-                <button class="profile__add-button"></button>
-            </section>
-<section class="cards">
-    <article class="card">
-        <img class="card__photo" src="" alt="Старинная постройка в горах">
-        <div class="card__place">
-            <h2 class="card__title">Карачаевск</h2>
-            <button class="card_like-button"></button>
+    <main>
+      <section class="profile">
+        <div class="profile__info">
+          <img class="profile__avatar" src="images/kusto.jpg" alt="Фотография пользователя">
+          <div class="profile__description">
+            <div class="profile__name">
+              <h1 class="profile__title">Жак-Ив Кусто</h1>
+              <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
+            </div>
+            <p class="profile__bio">Исследователь океана</p>
+          </div>
         </div>
-    </article>
+        <button class="profile__add-button" type="button" aria-label="Добавить"></button>
+      </section>
 
-</section>
+      <section class="cards">
+        <ul class="cards__gallery">
+          <li class="cards__card">
+            <img class="cards__photo" src="images/places-Sochi.jpg" alt="Горы в Сочи">
+            <div class="cards__place">
+              <h2 class="cards__title">Сочи</h2>
+              <button class="cards__like-button" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="cards__card">
+            <img class="cards__photo" src="images/places-Karachaevsk.jpg" alt="Старинная постройка в горах">
+            <div class="cards__place">
+              <h2 class="cards__title">Карачаевк</h2>
+              <button class="cards__like-button" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="cards__card">
+            <img class="cards__photo" src="images/places-Dombai.jpg" alt="Горы в Домбае">
+            <div class="cards__place">
+              <h2 class="cards__title">Домбай</h2>
+              <button class="cards__like-button" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="cards__card">
+            <img class="cards__photo" src="images/places-Elbrus.jpg" alt="Вид на Эльбрус">
+            <div class="cards__place">
+              <h2 class="cards__title">Эльбрус</h2>
+              <button class="cards__like-button" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="cards__card">
+            <img class="cards__photo" src="images/places-Kamchatka.jpg" alt="Гора и звёздное небо на Камчатке">
+            <div class="cards__place">
+              <h2 class="cards__title">Камчатка</h2>
+              <button class="cards__like-button" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
+          <li class="cards__card">
+            <img class="cards__photo" src="images/places-Porkhov.jpg" alt="Собака на стоге сена">
+            <div class="cards__place">
+              <h2 class="cards__title">Порхов</h2>
+              <button class="cards__like-button" type="button" aria-label="Нравится"></button>
+            </div>
+          </li>
 
+        </ul>
+      </section>
 
+    </main>
 
-        </main>
+    <footer class="footer">
+      <p class="footer__copyright">&copy;2021. Mesto Russia</p>
+    </footer>
 
-        <footer class="footer">
-            <p class="footer__copyright">&copy;2021. Mesto Russia</p>
-        </footer>
-
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="popupForm">
+          <input class="popup__input popup__input_type_name" type="text" name="name" id="name" placeholder="Ваше имя"
+            autocomplete="off"></input>
+          <input class="popup__input popup__input_type_about" type="text" name="bio" id="bio" placeholder="Ваш род занятий" maxlength="100"
+            autocomplete="off"></input>
+          <button class="popup__button-save" type="submit">Сохранить</button>
+        </form>
+      </div>
     </div>
 
-
-
+    <script src="scripts/index.js"></script>
 </body>
-
 
 </html>
