@@ -21,7 +21,7 @@ function formSubmitHandler(event) {
   event.preventDefault();
    profileName.textContent = popupName.value;
    profileAbout.textContent = popupAbout.value;
-   popup.classList.remove('popup_opened');
+   closePopup();
 }
 
 popupOpenButton.addEventListener('click', openPopup);

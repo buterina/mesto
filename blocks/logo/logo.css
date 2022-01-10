@@ -1,11 +1,9 @@
 .logo {
-  width: 142px;
+  transition: opacity 0.3s linear;
 }
 
-@media screen and (max-width: 425px) {
-  .logo {
-    margin-left: 27px;
-    width: 103.74px;
-  }
+.logo:hover {
+  opacity: 0.6;
 }
+
 
