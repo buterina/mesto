@@ -8,9 +8,9 @@ const profileAbout = document.querySelector('.profile__bio');
 const formElement = document.querySelector('.popup__form');
 
 function openPopup() {
-  popup.classList.add('popup_opened');
   popupName.value = profileName.textContent;
   popupAbout.value = profileAbout.textContent;
+  popup.classList.add('popup_opened');
 }
 
 function closePopup() {
