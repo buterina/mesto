@@ -14,10 +14,10 @@
   transition: opacity 0.3s linear;
   align-self: center;
   margin: 48px 0 37px 0;
+  cursor: pointer;
 }
 
 .popup__button-save:hover {
-  cursor: pointer;
   opacity: 0.8;
 }
 

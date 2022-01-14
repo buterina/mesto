@@ -11,11 +11,11 @@
   padding: 0;
   margin: 0;
   background-color: rgba(0, 0, 0, 0);
+  cursor: pointer;
   transition: opacity 0.3s linear;
 }
 
 .profile__add-button:hover {
-  cursor: pointer;
   opacity: 0.6;
 }
 

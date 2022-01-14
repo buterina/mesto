@@ -3,6 +3,7 @@
   border-radius: 10px;
   padding-bottom: 31px;
   display: flex;
+  position: relative;
   flex-direction: column;
   box-sizing: border-box;
 }
