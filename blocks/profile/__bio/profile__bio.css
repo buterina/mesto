@@ -1,4 +1,7 @@
 .profile__bio {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   color: #fff;
   font-style: normal;
   font-weight: 400;

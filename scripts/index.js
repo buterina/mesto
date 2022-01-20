@@ -1,35 +1,7 @@
 const list = document.querySelector('.cards__gallery');
 const cardTemplate = document.querySelector('.card-template').content;
 
-// карточки
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-initialCards.forEach(createCard);
+initialCards.forEach(renderCard);
 
 //удалить карточку
 function deleteCard(evt) {
@@ -38,6 +10,7 @@ function deleteCard(evt) {
 
 //создать карточку
 function createCard(cardData) {
+
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.card__photo');
   const cardTitle = cardElement.querySelector('.card__title');
@@ -46,28 +19,38 @@ function createCard(cardData) {
 
   cardTitle.textContent = cardData.name;
   cardImage.src = cardData.link;
+  cardImage.alt = cardData.name;
 
-  function toggleLike() {
-    likeButton.classList.toggle('card__like-button_filled')
-  }
+  likeButton.addEventListener('click', () => { likeButton.classList.toggle('card__like-button_filled') });
+  deleteButton.addEventListener('click', deleteCard);
 
-  function populatePhotoModal() {
-    popupPhoto.src = cardImage.src;
-    photoCaption.textContent = cardTitle.textContent;
-  }
-
-  cardImage.addEventListener('click', function() {
-    populatePhotoModal();
-    toggleModal(photoModal);
+  //клик по фотографии
+  cardImage.addEventListener('click', function () {
+    populatePhotoModal(cardData);
+    openModal(photoModal);
   });
 
-
-  deleteButton.addEventListener('click', deleteCard);
-  likeButton.addEventListener('click', toggleLike);
-
-  list.prepend(cardElement);
-
+  return cardElement;
 }
+
+//функция лайка
+function toggleLike() {
+  likeButton.classList.toggle('card__like-button_filled')
+}
+
+//добавить карточки в галерею
+function renderCard(cardData) {
+  const card = createCard(cardData)
+  list.prepend(card);
+}
+
+//наполнить фото попап данными
+function populatePhotoModal(cardData) {
+  photoCaption.textContent = cardData.name;
+  popupPhoto.src = cardData.link;
+  popupPhoto.alt = cardData.name;
+}
+
 
 //модалки
 const editModal = document.querySelector('.popup_type_edit');
@@ -99,8 +82,12 @@ const inputCardLink = document.querySelector('.popup__input_type_card-link');
 const profileName = document.querySelector('.profile__title');
 const profileAbout = document.querySelector('.profile__bio');
 
-function toggleModal(modal) {
-  modal.classList.toggle('popup_opened');
+function openModal(modal) {
+  modal.classList.add('popup_opened');
+}
+
+function closeModal(modal) {
+  modal.classList.remove('popup_opened');
 }
 
 function populateEditModal() {
@@ -112,7 +99,7 @@ function editProfileSubmitHandler(event) {
   event.preventDefault(); //чтобы не перезагружать страницу
   profileName.textContent = inputProfileName.value;
   profileAbout.textContent = inputProfileAbout.value;
-  toggleModal(editModal);
+  closeModal(editModal);
 }
 
 function addCardSubmitHandler(event) {
@@ -121,26 +108,30 @@ function addCardSubmitHandler(event) {
     name: inputCardName.value,
     link: inputCardLink.value
   });
-  toggleModal(addCardModal);
+  closeModal(addCardModal);
+
+  inputCardName.value = inputCardName.defaultValue;
+  inputCardLink.value = inputCardLink.defaultValue;
+
 };
 
 
 
-editProfileButton.addEventListener('click', function() {
+editProfileButton.addEventListener('click', function () {
   populateEditModal();
-  toggleModal(editModal);
+  openModal(editModal);
 });
 
-closeEditModalButton.addEventListener('click', () => toggleModal(editModal));
+closeEditModalButton.addEventListener('click', () => closeModal(editModal));
 
-addCardButton.addEventListener('click', () => toggleModal(addCardModal));
+addCardButton.addEventListener('click', () => openModal(addCardModal));
 
-closeAddCardModalButton.addEventListener('click', () => toggleModal(addCardModal));
+closeAddCardModalButton.addEventListener('click', () => closeModal(addCardModal));
 
 editForm.addEventListener('submit', editProfileSubmitHandler);
 
 addCardForm.addEventListener('submit', addCardSubmitHandler);
 
-closePhotoModalButton.addEventListener('click', () => toggleModal(photoModal));
+closePhotoModalButton.addEventListener('click', () => closeModal(photoModal));
 
 
