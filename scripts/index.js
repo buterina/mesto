@@ -1,62 +1,10 @@
 const list = document.querySelector('.cards__gallery');
 const cardTemplate = document.querySelector('.card-template').content;
 
-initialCards.forEach(renderCard);
-
-//удалить карточку
-function deleteCard(evt) {
-  evt.target.closest('.card').remove();
-};
-
-//создать карточку
-function createCard(cardData) {
-
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__photo');
-  const cardTitle = cardElement.querySelector('.card__title');
-  const deleteButton = cardElement.querySelector('.card__delete-button');
-  const likeButton = cardElement.querySelector('.card__like-button');
-
-  cardTitle.textContent = cardData.name;
-  cardImage.src = cardData.link;
-  cardImage.alt = cardData.name;
-
-  likeButton.addEventListener('click', () => { likeButton.classList.toggle('card__like-button_filled') });
-  deleteButton.addEventListener('click', deleteCard);
-
-  //клик по фотографии
-  cardImage.addEventListener('click', function () {
-    populatePhotoModal(cardData);
-    openModal(photoModal);
-  });
-
-  return cardElement;
-}
-
-//функция лайка
-function toggleLike() {
-  likeButton.classList.toggle('card__like-button_filled')
-}
-
-//добавить карточки в галерею
-function renderCard(cardData) {
-  const card = createCard(cardData)
-  list.prepend(card);
-}
-
-//наполнить фото попап данными
-function populatePhotoModal(cardData) {
-  photoCaption.textContent = cardData.name;
-  popupPhoto.src = cardData.link;
-  popupPhoto.alt = cardData.name;
-}
-
-
 //модалки
 const editModal = document.querySelector('.popup_type_edit');
 const addCardModal = document.querySelector('.popup_type_add-card');
 const photoModal = document.querySelector('.popup_type_photo');
-
 const popupPhoto = document.querySelector('.popup__photo');
 const photoCaption = document.querySelector('.popup__caption');
 
@@ -82,6 +30,54 @@ const inputCardLink = document.querySelector('.popup__input_type_card-link');
 const profileName = document.querySelector('.profile__title');
 const profileAbout = document.querySelector('.profile__bio');
 
+initialCards.forEach(renderCard); // Арина, я сверилась с Лизой, нашим наставником, она подтвердила, что это лучший и самый короткий вариант
+
+//создать карточку
+function createCard(cardData) {
+
+  const cardElement = cardTemplate.cloneNode(true);
+  const cardImage = cardElement.querySelector('.card__photo');
+  const cardTitle = cardElement.querySelector('.card__title');
+  const deleteButton = cardElement.querySelector('.card__delete-button');
+  const likeButton = cardElement.querySelector('.card__like-button');
+
+  cardTitle.textContent = cardData.name;
+  cardImage.src = cardData.link;
+  cardImage.alt = cardData.name;
+
+  likeButton.addEventListener('click', toggleLike);
+  deleteButton.addEventListener('click', deleteCard);
+
+  cardImage.addEventListener('click', function () {
+    populatePhotoModal(cardData);
+    openModal(photoModal);
+  });
+
+  return cardElement;
+}
+
+//функция лайка
+function toggleLike(evt) {
+  evt.target.classList.toggle('card__like-button_filled');
+}
+
+//удалить карточку
+function deleteCard(evt) {
+  evt.target.closest('.card').remove();
+};
+
+//добавить карточки в галерею
+function renderCard(cardData) {
+  list.prepend(createCard(cardData));
+}
+
+//наполнить фото попап данными
+function populatePhotoModal(cardData) {
+  photoCaption.textContent = cardData.name;
+  popupPhoto.src = cardData.link;
+  popupPhoto.alt = cardData.name;
+}
+
 function openModal(modal) {
   modal.classList.add('popup_opened');
 }
@@ -104,18 +100,17 @@ function editProfileSubmitHandler(event) {
 
 function addCardSubmitHandler(event) {
   event.preventDefault();
-  createCard({
+
+  renderCard({ //Здесь тоже сверилась с Лизой, и она одобрила этот вариант renderCard. Так пойдет?
     name: inputCardName.value,
     link: inputCardLink.value
   });
   closeModal(addCardModal);
 
-  inputCardName.value = inputCardName.defaultValue;
-  inputCardLink.value = inputCardLink.defaultValue;
+  inputCardName.value = '';
+  inputCardLink.value = '';
 
 };
-
-
 
 editProfileButton.addEventListener('click', function () {
   populateEditModal();
