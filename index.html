@@ -46,12 +46,21 @@
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popupForm">
-          <input class="popup__input popup__input_type_name" type="text" name="name" id="name" placeholder="Ваше имя"
-            autocomplete="off">
-          <input class="popup__input popup__input_type_about" type="text" name="bio" id="bio"
-            placeholder="Ваш род занятий" maxlength="100" autocomplete="off">
-          <button class="popup__button-save" type="submit">Сохранить</button>
+        <form class="popup__form" name="popupForm" novalidate>
+
+          <label class="popup__field">
+            <input class="popup__input popup__input_type_name" id="name-input" type="text" name="name"
+              placeholder="Ваше имя" minlength="2" maxlength="40" autocomplete="off" required>
+            <span class="popup__input-error name-input-error"></span>
+          </label>
+
+          <label class="popup__field">
+            <input class="popup__input popup__input_type_about" id="bio-input" type="text" name="bio"
+              placeholder="Ваш род занятий" minlength="2" maxlength="200" autocomplete="off" required>
+            <span class="popup__input-error bio-input-error"></span>
+          </label>
+
+          <button class="popup__button" type="submit">Сохранить</button>
         </form>
       </div>
     </article>
@@ -60,12 +69,21 @@
       <div class="popup__container">
         <button class="popup__close-button" type="button" aria-label="Закрыть"></button>
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form" name="popupForm">
-          <input class="popup__input popup__input_type_card-name" type="text" name="place" id="place" placeholder="Название"
-            autocomplete="off">
-          <input class="popup__input popup__input_type_card-link" type="text" name="link" id="link"
-            placeholder="Ссылка на картинку" autocomplete="off">
-          <button class="popup__button-save" type="submit">Сохранить</button>
+        <form class="popup__form" name="popupForm" novalidate>
+
+          <label class="popup__field">
+            <input class="popup__input popup__input_type_card-name" type="text" name="place" id="place-input"
+              placeholder="Название" autocomplete="off" minlength="2" maxlength="30" required>
+            <span class="popup__input-error place-input-error"></span>
+          </label>
+
+          <label class="popup__field">
+            <input class="popup__input popup__input_type_card-link" type="url" name="link" id="link-input"
+              placeholder="Ссылка на картинку" autocomplete="off" required>
+            <span class="popup__input-error link-input-error"></span>
+          </label>
+
+          <button class="popup__button" type="submit">Сохранить</button>
         </form>
       </div>
     </article>
@@ -76,7 +94,7 @@
         <figure class="popup__image">
           <img class="popup__photo">
           <figcaption class="popup__caption">Домбай</figcaption>
-      </figure>
+        </figure>
       </div>
     </article>
 
@@ -94,7 +112,10 @@
   </template>
 
   <script src="scripts/cards.js"></script>
+  <script src="scripts/validate.js"></script>
   <script src="scripts/index.js"></script>
+
+
 </body>
 
 </html>

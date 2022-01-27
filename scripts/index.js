@@ -7,6 +7,7 @@ const addCardModal = document.querySelector('.popup_type_add-card');
 const photoModal = document.querySelector('.popup_type_photo');
 const popupPhoto = document.querySelector('.popup__photo');
 const photoCaption = document.querySelector('.popup__caption');
+const popups = document.querySelectorAll('.popup');
 
 //формы
 const editForm = editModal.querySelector('.popup__form');
@@ -30,7 +31,7 @@ const inputCardLink = document.querySelector('.popup__input_type_card-link');
 const profileName = document.querySelector('.profile__title');
 const profileAbout = document.querySelector('.profile__bio');
 
-initialCards.forEach(renderCard); // Арина, я сверилась с Лизой, нашим наставником, она подтвердила, что это лучший и самый короткий вариант
+initialCards.forEach(renderCard);
 
 //создать карточку
 function createCard(cardData) {
@@ -80,10 +81,20 @@ function populatePhotoModal(cardData) {
 
 function openModal(modal) {
   modal.classList.add('popup_opened');
+  document.addEventListener('keydown', closeKeyHandler);
 }
 
 function closeModal(modal) {
   modal.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeKeyHandler);
+
+}
+
+function closeKeyHandler(evt) {
+  if (evt.key === 'Escape') {
+    const openedModal = document.querySelector('.popup_opened');
+    closeModal(openedModal);
+  }
 }
 
 function populateEditModal() {
@@ -92,7 +103,7 @@ function populateEditModal() {
 }
 
 function editProfileSubmitHandler(event) {
-  event.preventDefault(); //чтобы не перезагружать страницу
+  event.preventDefault();
   profileName.textContent = inputProfileName.value;
   profileAbout.textContent = inputProfileAbout.value;
   closeModal(editModal);
@@ -101,7 +112,7 @@ function editProfileSubmitHandler(event) {
 function addCardSubmitHandler(event) {
   event.preventDefault();
 
-  renderCard({ //Здесь тоже сверилась с Лизой, и она одобрила этот вариант renderCard. Так пойдет?
+  renderCard({
     name: inputCardName.value,
     link: inputCardLink.value
   });
@@ -112,7 +123,17 @@ function addCardSubmitHandler(event) {
 
 };
 
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if(!evt.target.closest('.popup__container')) {
+      closeModal(popup);
+    }
+  })
+})
+
 editProfileButton.addEventListener('click', function () {
+  hideInputError (editModal, inputProfileName);
+  hideInputError (editModal, inputProfileAbout);
   populateEditModal();
   openModal(editModal);
 });
