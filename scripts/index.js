@@ -9,16 +9,15 @@ const popupPhoto = document.querySelector('.popup__photo');
 const photoCaption = document.querySelector('.popup__caption');
 const popups = document.querySelectorAll('.popup');
 
+
 //формы
 const editForm = editModal.querySelector('.popup__form');
 const addCardForm = addCardModal.querySelector('.popup__form');
 
 //кнопки
+const submitCardButton = addCardModal.querySelector('.popup__button');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
-const closeEditModalButton = editModal.querySelector('.popup__close-button');
-const closeAddCardModalButton = addCardModal.querySelector('.popup__close-button');
-const closePhotoModalButton = photoModal.querySelector('.popup__close-button');
 
 // инпуты
 
@@ -82,6 +81,9 @@ function populatePhotoModal(cardData) {
 function openModal(modal) {
   modal.classList.add('popup_opened');
   document.addEventListener('keydown', closeKeyHandler);
+  clearError(editModal, inputProfileName); //Михаил, я по вашему совету удалила отдельные функции закрытия попапов по крестикам
+  //(объединив их c функцией оверлея), нормально ли сюда перенести функцию clearError?
+  clearError(editModal, inputProfileAbout);
 }
 
 function closeModal(modal) {
@@ -118,36 +120,40 @@ function addCardSubmitHandler(event) {
   });
   closeModal(addCardModal);
 
+  submitCardButton.classList.add('popup__button_disabled');
+  submitCardButton.setAttribute('disabled', true);
+
   inputCardName.value = '';
   inputCardLink.value = '';
+
 
 };
 
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
-    if(!evt.target.closest('.popup__container')) {
+    if (!evt.target.closest('.popup__container')) {
       closeModal(popup);
     }
-  })
-})
+    if (evt.target.classList.contains('popup__close-button')) {
+      closeModal(popup)
+    }
+  });
+});
+
+function clearError(formElement, inputElement)  {
+  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__input_type_error');
+  errorElement.textContent = '';
+};
 
 editProfileButton.addEventListener('click', function () {
-  hideInputError (editModal, inputProfileName);
-  hideInputError (editModal, inputProfileAbout);
   populateEditModal();
   openModal(editModal);
 });
 
-closeEditModalButton.addEventListener('click', () => closeModal(editModal));
-
 addCardButton.addEventListener('click', () => openModal(addCardModal));
-
-closeAddCardModalButton.addEventListener('click', () => closeModal(addCardModal));
-
 editForm.addEventListener('submit', editProfileSubmitHandler);
-
 addCardForm.addEventListener('submit', addCardSubmitHandler);
 
-closePhotoModalButton.addEventListener('click', () => closeModal(photoModal));
 
 
