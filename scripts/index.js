@@ -81,9 +81,6 @@ function populatePhotoModal(cardData) {
 function openModal(modal) {
   modal.classList.add('popup_opened');
   document.addEventListener('keydown', closeKeyHandler);
-  clearError(editModal, inputProfileName); //Михаил, я по вашему совету удалила отдельные функции закрытия попапов по крестикам
-  //(объединив их c функцией оверлея), нормально ли сюда перенести функцию clearError?
-  clearError(editModal, inputProfileAbout);
 }
 
 function closeModal(modal) {
@@ -126,7 +123,6 @@ function addCardSubmitHandler(event) {
   inputCardName.value = '';
   inputCardLink.value = '';
 
-
 };
 
 popups.forEach((popup) => {
@@ -140,20 +136,20 @@ popups.forEach((popup) => {
   });
 });
 
-function clearError(formElement, inputElement)  {
+function clearError(formElement, inputElement) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove('popup__input_type_error');
   errorElement.textContent = '';
 };
 
-editProfileButton.addEventListener('click', function () {
+editProfileButton.addEventListener('click', function () {  //Михаил, я перенесла clearError сюда, т.к. если перенести после сабмита, то ошибки не будут очищаться после закрытия крестиком, оверлеем или esc
   populateEditModal();
+  clearError(editModal, inputProfileName);
+  clearError(editModal, inputProfileAbout);
   openModal(editModal);
+
 });
 
 addCardButton.addEventListener('click', () => openModal(addCardModal));
 editForm.addEventListener('submit', editProfileSubmitHandler);
 addCardForm.addEventListener('submit', addCardSubmitHandler);
-
-
-
