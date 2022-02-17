@@ -1,12 +1,14 @@
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
+
 const list = document.querySelector('.cards__gallery');
-const cardTemplate = document.querySelector('.card-template').content;
 
 //модалки
 const editModal = document.querySelector('.popup_type_edit');
 const addCardModal = document.querySelector('.popup_type_add-card');
-const photoModal = document.querySelector('.popup_type_photo');
-const popupPhoto = document.querySelector('.popup__photo');
-const photoCaption = document.querySelector('.popup__caption');
+export const photoModal = document.querySelector('.popup_type_photo');
+export const popupPhoto = document.querySelector('.popup__photo');
+export const photoCaption = document.querySelector('.popup__caption');
 const popups = document.querySelectorAll('.popup');
 
 
@@ -30,55 +32,47 @@ const inputCardLink = document.querySelector('.popup__input_type_card-link');
 const profileName = document.querySelector('.profile__title');
 const profileAbout = document.querySelector('.profile__bio');
 
-initialCards.forEach(renderCard);
 
-//создать карточку
-function createCard(cardData) {
+// карточки
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.card__photo');
-  const cardTitle = cardElement.querySelector('.card__title');
-  const deleteButton = cardElement.querySelector('.card__delete-button');
-  const likeButton = cardElement.querySelector('.card__like-button');
-
-  cardTitle.textContent = cardData.name;
-  cardImage.src = cardData.link;
-  cardImage.alt = cardData.name;
-
-  likeButton.addEventListener('click', toggleLike);
-  deleteButton.addEventListener('click', deleteCard);
-
-  cardImage.addEventListener('click', function () {
-    populatePhotoModal(cardData);
-    openModal(photoModal);
-  });
-
-  return cardElement;
-}
-
-//функция лайка
-function toggleLike(evt) {
-  evt.target.classList.toggle('card__like-button_filled');
-}
-
-//удалить карточку
-function deleteCard(evt) {
-  evt.target.closest('.card').remove();
-};
 
 //добавить карточки в галерею
-function renderCard(cardData) {
-  list.prepend(createCard(cardData));
+function renderCard(data) {
+  const card = new Card(data, '#card-template-photo');
+  const cardElement = card.getCardElement();
+  list.prepend(cardElement);
 }
 
-//наполнить фото попап данными
-function populatePhotoModal(cardData) {
-  photoCaption.textContent = cardData.name;
-  popupPhoto.src = cardData.link;
-  popupPhoto.alt = cardData.name;
-}
+initialCards.forEach(renderCard);
 
-function openModal(modal) {
+
+export function openModal(modal) {
   modal.classList.add('popup_opened');
   document.addEventListener('keydown', closeKeyHandler);
 }
@@ -153,3 +147,20 @@ editProfileButton.addEventListener('click', function () {  //Михаил, я п
 addCardButton.addEventListener('click', () => openModal(addCardModal));
 editForm.addEventListener('submit', editProfileSubmitHandler);
 addCardForm.addEventListener('submit', addCardSubmitHandler);
+
+//валидирование форм
+
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorVisibleClass: 'popup__input-error_visible',
+};
+
+const editFormValidator = new FormValidator(config, editForm);
+const addCardFormValidator = new FormValidator(config, addCardForm);
+
+editFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
