@@ -17,12 +17,10 @@ const editForm = editModal.querySelector('.popup__form');
 const addCardForm = addCardModal.querySelector('.popup__form');
 
 //кнопки
-const submitCardButton = addCardModal.querySelector('.popup__button');
 const editProfileButton = document.querySelector('.profile__edit-button');
 const addCardButton = document.querySelector('.profile__add-button');
 
 // инпуты
-
 const inputProfileName = document.querySelector('.popup__input_type_name');
 const inputProfileAbout = document.querySelector('.popup__input_type_about');
 
@@ -61,15 +59,19 @@ const initialCards = [
   }
 ];
 
-
-//добавить карточки в галерею
-function renderCard(data) {
-  const card = new Card(data, '#card-template-photo');
+//создать карточку
+function createCard(item) {
+  const card = new Card(item, '#card-template-photo');
   const cardElement = card.getCardElement();
-  list.prepend(cardElement);
+  return cardElement;
 }
 
-initialCards.forEach(renderCard);
+//добавить карточки в галерею
+function addCardToGallery(item) {
+  list.prepend(createCard(item));
+}
+
+initialCards.forEach(addCardToGallery);
 
 
 export function openModal(modal) {
@@ -102,23 +104,6 @@ function editProfileSubmitHandler(event) {
   closeModal(editModal);
 }
 
-function addCardSubmitHandler(event) {
-  event.preventDefault();
-
-  renderCard({
-    name: inputCardName.value,
-    link: inputCardLink.value
-  });
-  closeModal(addCardModal);
-
-  submitCardButton.classList.add('popup__button_disabled');
-  submitCardButton.setAttribute('disabled', true);
-
-  inputCardName.value = '';
-  inputCardLink.value = '';
-
-};
-
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (!evt.target.closest('.popup__container')) {
@@ -130,16 +115,9 @@ popups.forEach((popup) => {
   });
 });
 
-function clearError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  errorElement.textContent = '';
-};
-
-editProfileButton.addEventListener('click', function () {  //Михаил, я перенесла clearError сюда, т.к. если перенести после сабмита, то ошибки не будут очищаться после закрытия крестиком, оверлеем или esc
+editProfileButton.addEventListener('click', function () {
   populateEditModal();
-  clearError(editModal, inputProfileName);
-  clearError(editModal, inputProfileAbout);
+  editFormValidator.resetValidation();
   openModal(editModal);
 
 });
@@ -164,3 +142,16 @@ const addCardFormValidator = new FormValidator(config, addCardForm);
 
 editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+
+export function addCardSubmitHandler(event) {
+  event.preventDefault();
+  addCardToGallery({
+    name: inputCardName.value,
+    link: inputCardLink.value
+  });
+
+  closeModal(addCardModal);
+  addCardForm.reset();
+  addCardFormValidator.disableSubmitButton();
+
+};

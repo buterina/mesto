@@ -2,7 +2,7 @@ export class FormValidator {
   constructor(settings, form) {
     this._form = form;
     this._settings = settings;
-    this._inputList = Array.from(this._form.querySelectorAll(this._settings.inputSelector));  //check whether I need before inputSelector
+    this._inputList = Array.from(this._form.querySelectorAll(this._settings.inputSelector));
     this._buttonElement = this._form.querySelector(this._settings.submitButtonSelector);
   }
 
@@ -38,7 +38,7 @@ export class FormValidator {
     });
   };
 
-  _disableSubmitButton = () => {
+  disableSubmitButton = () => {
     const { inactiveButtonClass } = this._settings;
     this._buttonElement.classList.add(inactiveButtonClass);
     this._buttonElement.setAttribute('disabled', true);
@@ -52,14 +52,14 @@ export class FormValidator {
 
   _toggleButtonState = () => {
     if (this._hasInvalidInput()) {
-      this._disableSubmitButton();
+      this.disableSubmitButton();
     } else {
       this._enableSubmitButton();
     }
   };
 
   _setEventListeners() {
-    this._toggleButtonState(); // do I need this one here?
+    this._toggleButtonState();
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
@@ -74,4 +74,13 @@ export class FormValidator {
     });
     this._setEventListeners();
   };
+
+  resetValidation() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement)
+    });
+
+  }
+
 }
