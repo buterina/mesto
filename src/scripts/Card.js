@@ -1,10 +1,9 @@
-import { photoCaption, popupPhoto, photoModal, openModal } from './index.js';
-
 export class Card {
-  constructor(data, cardTemplate) {
+  constructor(data, handleCardClick, cardTemplate) {
     this._name = data.name;
     this._link = data.link;
-    this._template = document.querySelector(cardTemplate).content.querySelector('.card')
+    this._template = document.querySelector(cardTemplate).content.querySelector('.card');
+    this._handleCardClick = handleCardClick;
   }
 
   //лайкнуть
@@ -17,19 +16,13 @@ export class Card {
     this._cardElement.remove();
   };
 
-  //наполнить фото попап данными и открыть
-  _openPhotoModal = () => {
-    photoCaption.textContent = this._name;
-    popupPhoto.src = this._link;
-    popupPhoto.alt = this._name;
-    openModal(photoModal);
-  }
-
   //слушатели
   _setEventListeners = () => {
     this._likeButton.addEventListener('click', this._toggleLike);
     this._deleteButton.addEventListener('click', this._deleteCard);
-    this._cardImage.addEventListener('click', this._openPhotoModal);
+    this._cardImage.addEventListener('click', () => {
+      this._handleCardClick(this._name, this._link);
+    });
   };
 
   //заполнение
