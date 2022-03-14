@@ -1,4 +1,4 @@
-import { inputProfileName, inputProfileAbout, profilePopup } from "../index.js";
+import { inputProfileName, inputProfileAbout } from "../utils/constants.js";
 
 export class UserInfo {
   constructor({ profileNameSelector, profileAboutSelector }) {
@@ -8,24 +8,18 @@ export class UserInfo {
 
   getUserInfo = () => {
 
-    const user = {
+    return {
+
       name: this._profileName.textContent,
       about: this._profileAbout.textContent
-    };
 
-    inputProfileName.value = user.name;
-    inputProfileAbout.value = user.about;
-
-    return user;
+    }
   }
-
 
   setUserInfo = () => {
 
     this._profileName.textContent = inputProfileName.value;
     this._profileAbout.textContent = inputProfileAbout.value;
-
-    profilePopup.close();
 
   }
 
