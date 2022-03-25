@@ -14,16 +14,11 @@ import { api } from "../scripts/Api.js"
 
 let userId;
 
-api.getProfile()
-  .then(res => {
-    console.log('ответ', res)
-    userInfo.setUserInfo(res.name, res.about, res.avatar);
-    userId = res._id;
-  })
-
-api.getInitialCards()
-  .then(cardList => {
-    cardList.forEach(data => {
+Promise.all([api.getProfile(), api.getInitialCards()])
+  .then(([userData, cardListData]) => {
+    userId = userData._id;
+    userInfo.setUserInfo(userData.name, userData.about, userData.avatar);
+    cardListData.forEach(data => {
       const cardElement = createCard({
         name: data.name,
         link: data.link,
@@ -33,10 +28,8 @@ api.getInitialCards()
         ownerId: data.owner._id
       })
       cardGallery.addItem(cardElement);
-    })
-  })
-
-
+    });
+  });
 
 //попапы
 export const profilePopup = new PopupWithForm(editModal, profilePopupSubmitHandler);
