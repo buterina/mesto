@@ -6,6 +6,7 @@
   max-width: 22px;
   height: 19px;
   padding: 0;
+  margin-bottom: 4px;
   box-sizing: border-box;
   transition: opacity 0.3s linear;
   border: none;

@@ -1,9 +1,8 @@
-import { inputProfileName, inputProfileAbout } from "../utils/constants.js";
-
 export class UserInfo {
-  constructor({ profileNameSelector, profileAboutSelector }) {
+  constructor({ profileNameSelector, profileAboutSelector, profileAvatarSelector }) {
     this._profileName = profileNameSelector;
     this._profileAbout = profileAboutSelector;
+    this._avatar = profileAvatarSelector;
   }
 
   getUserInfo = () => {
@@ -16,10 +15,11 @@ export class UserInfo {
     }
   }
 
-  setUserInfo = () => {
+  setUserInfo = (name, about, avatar) => {
 
-    this._profileName.textContent = inputProfileName.value;
-    this._profileAbout.textContent = inputProfileAbout.value;
+    this._profileName.textContent = name;
+    this._profileAbout.textContent = about;
+    this._avatar.src = avatar;
 
   }
 

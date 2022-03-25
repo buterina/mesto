@@ -80,7 +80,12 @@ export class FormValidator {
     this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement)
     });
+  }
 
+  renderLoading(isLoading) {
+    if (isLoading) {
+      this._buttonElement.textContent = 'Сохранение...';
+    }
   }
 
 }
