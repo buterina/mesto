@@ -8,10 +8,8 @@ export class UserInfo {
   getUserInfo = () => {
 
     return {
-
       name: this._profileName.textContent,
       about: this._profileAbout.textContent
-
     }
   }
 

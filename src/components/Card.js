@@ -9,7 +9,14 @@ export class Card {
     this._handleDeleteClick = handleDeleteClick;
     this._handleLikeClick = handleLikeClick;
     this._userId = data.userId;
-    this._ownerId = data.ownerId
+    this._ownerId = data.ownerId;
+    this._cardElement = this._template.cloneNode(true);
+    this._likeButton = this._cardElement.querySelector('.card__like-button');
+    this._deleteButton = this._cardElement.querySelector('.card__delete-button');
+    this._cardImage = this._cardElement.querySelector('.card__photo');
+    this._cardTitle = this._cardElement.querySelector('.card__title');
+    this._likeCountElement = this._cardElement.querySelector('.card__like-count');
+
   }
 
   //лайкнуть
@@ -51,9 +58,7 @@ export class Card {
 
   setLikes(newLikes) {
     this._likes = newLikes;
-    const likeCountElement = this._cardElement.querySelector('.card__like-count');
-    likeCountElement.textContent = this._likes.length;
-
+    this._likeCountElement.textContent = this._likes.length;
 
     if (this.isLiked()) {
       this._addLike();
@@ -64,13 +69,6 @@ export class Card {
 
   //создать карточку
   getCardElement = () => {
-
-    this._cardElement = this._template.cloneNode(true);
-    this._likeButton = this._cardElement.querySelector('.card__like-button');
-    this._deleteButton = this._cardElement.querySelector('.card__delete-button');
-    this._cardImage = this._cardElement.querySelector('.card__photo');
-    this._cardTitle = this._cardElement.querySelector('.card__title');
-
     this._fillCard();
     this._setEventListeners();
     this.setLikes(this._likes);

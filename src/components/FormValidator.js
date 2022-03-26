@@ -82,10 +82,10 @@ export class FormValidator {
     });
   }
 
-  renderLoading(isLoading) {
-    if (isLoading) {
-      this._buttonElement.textContent = 'Сохранение...';
-    }
-  }
+  // renderLoading(isLoading) {
+  //   if (isLoading) {
+  //     this._buttonElement.textContent = 'Сохранение...';
+  //   }
+  // }
 
 }

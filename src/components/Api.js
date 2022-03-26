@@ -4,15 +4,16 @@ class Api {
     this._baseUrl = baseUrl
   }
 
+  _checkResponse(res) {
+    return res.ok ? res.json() : Promise.reject(res.status);
+  }
+
   getProfile() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'GET',
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResponse(res))
   }
 
   updateAvatar(avatar) {
@@ -23,10 +24,7 @@ class Api {
         avatar
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResponse(res))
   }
 
   getInitialCards() {
@@ -34,10 +32,7 @@ class Api {
       method: 'GET',
       headers: this._headers
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResponse(res))
   }
 
   editProfile(name, about) {
@@ -49,10 +44,7 @@ class Api {
         about
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResponse(res))
   }
 
   addCard(name, link) {
@@ -64,10 +56,7 @@ class Api {
         link
       })
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResponse(res))
   }
 
   deleteCard(id) {
@@ -75,10 +64,7 @@ class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResponse(res))
   }
 
   addLike(id) {
@@ -86,10 +72,7 @@ class Api {
       method: 'PUT',
       headers: this._headers,
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResponse(res))
   }
 
   deleteLike(id) {
@@ -97,14 +80,8 @@ class Api {
       method: 'DELETE',
       headers: this._headers,
     })
-      .then(res => res.ok ? res.json() : Promise.reject(res.status))
-      .catch((err) => {
-        console.log(err);
-      });
+      .then(res => this._checkResponse(res))
   }
-
-
-
 }
 
 export const api = new Api({
