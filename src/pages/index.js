@@ -19,20 +19,11 @@ Promise.all([api.getProfile(), api.getInitialCards()])
     userId = userData._id;
     userInfo.setUserInfo(userData.name, userData.about);
     userInfo.setAvatar(userData.avatar);
-    cardListData.reverse();
     cardGallery.renderItems(cardListData);
-    // cardListData.forEach(data => {
-    //   const cardElement = createCard({
-    //     name: data.name,
-    //     link: data.link,
-    //     likes: data.likes,
-    //     id: data._id,
-    //     userId: userId,
-    //     ownerId: data.owner._id
-    //   })
-      cardGallery.addItem(cardElement);
-    });
-  })
+    // cardListData.forEach(data => cardGallery.renderItems (data))
+      // cardGallery.addItem(cardElement);
+    })
+  // })
   .catch((err) => {
     console.log(err);
   });
@@ -160,13 +151,20 @@ function createCard(item) {
 //добавить изначальные карточки в галерею
 const cardGallery = new Section({
   items: [],
-  renderer: (item) => {
-    const cardElement = createCard(item);
+  renderer: (data) => {
+    const cardElement = createCard({
+      name: data.name,
+      link: data.link,
+      likes: data.likes,
+      id: data._id,
+      userId: userId,
+      ownerId: data.owner._id
+    });
     cardGallery.addItem(cardElement);
   }
 }, cardListSelector);
 
-cardGallery.renderItems();
+// cardGallery.renderItems();
 
 //Профиль
 
