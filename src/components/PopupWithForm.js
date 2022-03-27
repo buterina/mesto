@@ -1,8 +1,8 @@
 import { Popup } from "./Popup";
 
 export class PopupWithForm extends Popup {
-  constructor(popupSelector, submitFormHandler) {
-    super(popupSelector);
+  constructor(popup, submitFormHandler) {
+    super(popup);
     this._form = this._popup.querySelector('.popup__form');
     this._submitFormHandler = submitFormHandler;
     this._inputList = this._form.querySelectorAll('.popup__input');
@@ -31,9 +31,11 @@ export class PopupWithForm extends Popup {
     this._form.reset();
   }
 
-  renderLoading(isLoading, buttonText = 'Сохранить...') {
+  renderLoading(isLoading, buttonText = 'Сохранение...') {
     if (isLoading) {
       this._buttonElement.textContent = buttonText;
+    } else {
+      this._buttonElement.textContent = 'Сохранить'
     }
   }
 
