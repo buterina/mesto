@@ -32,7 +32,32 @@ Promise.all([api.getProfile(), api.getInitialCards()])
 //попапы
 export const profilePopup = new PopupWithForm(editModal, handleSubmitProfile);
 const popupWithImage = new PopupWithImage(photoModal);
-const addCardPopup = new PopupWithForm(addCardModal, handleSubmitCard);
+const addCardPopup = new PopupWithForm(addCardModal, (data) => {
+
+  addCardPopup.renderLoading(true)
+
+  api.addCard(data.place, data.link)
+    .then(res => {
+      console.log('res', res)
+      const cardElement = createCard({
+        name: res.name,
+        link: res.link,
+        likes: res.likes,
+        id: res._id,
+        userId: userId,
+        ownerId: res.owner._id
+      });
+      cardGallery.addItem(cardElement)
+      addCardPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      addCardPopup.renderLoading(false);
+    })
+
+});
 const confirmPopup = new PopupWithConfirmation(confirmDeleteModal);
 
 const avatarPopup = new PopupWithForm(changeAvatarModal, (data) => {
@@ -73,33 +98,6 @@ function handleSubmitProfile(data) {
 
 }
 
-//добавить новую карточку
-function handleSubmitCard() {
-
-  addCardPopup.renderLoading(true)
-
-  api.addCard(input.name, input.link)
-    .then(res => {
-      console.log('res', res)
-      const cardElement = createCard({
-        name: res.name,
-        link: res.link,
-        likes: res.likes,
-        id: res._id,
-        userId: userId,
-        ownerId: res.owner._id
-      });
-      cardGallery.addItem(cardElement)
-      addCardPopup.close();
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally(() => {
-      addCardPopup.renderLoading(false);
-    })
-
-};
 
 
 function handleCardClick(name, link) {
