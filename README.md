@@ -2,17 +2,28 @@
 
 ## Description:
 
-"Places" is a one-page website featuring some of Canada's national parks
+"Places" is an interactive website featuring user-generated posts. Users can add, like, and delete posts.
 
-## Technologies:
+## Features:
+
+-users can like posts;
+
+-all data (profile, avatar, likes, etc.) is stored on the server;
+
+-form validation on client side
+
+
+## Tech:
 
 -HTML5;
 
 -CSS (flexbox, grid, animations, adaptive layout);
 
--Javascript ()
+-Javascript (async, OOP, DOM API, Fetch API);
 
--BEM (Block, Element, Modifier) methodology
+-BEM (Block, Element, Modifier) methodology;
+
+-Webpack
 
 ## Demo:
 
