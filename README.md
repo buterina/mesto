@@ -10,7 +10,7 @@
 
 -all data (profile, avatar, likes, etc.) is stored on the server;
 
--form validation on client side
+-client-side form validation
 
 
 ## Tech:
