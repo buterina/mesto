@@ -1,9 +1,33 @@
-Место: проектная работа для Яндекс Практимума.
+# Places: a project for Practicum web development course
 
-В этом проекте я использую навыки, приобретенные во время обучения на Яндекс Практикуме.
+## Description:
 
-Использованные технологии:
+"Places" is a one-page website featuring some of Canada's national parks
 
--HTML5 -CSS -Javascript
+## Technologies:
 
-Ссылка на GitHub pages: https://buterina.github.io/mesto/
+-HTML5;
+
+-CSS (flexbox, grid, animations, adaptive layout);
+
+-Javascript ()
+
+-BEM (Block, Element, Modifier) methodology
+
+## Demo:
+
+https://buterina.github.io/mesto/
+
+## Clone:
+
+```
+git clone https://github.com/buterina/mesto.git
+
+cd mesto
+
+npm i webpack --save-dev
+
+npm run build
+
+npm run dev
+```
