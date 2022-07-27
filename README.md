@@ -6,6 +6,10 @@
 
 ## Features:
 
+-users can add and delete posts;
+
+-users can edit their profiles;
+
 -users can like posts;
 
 -all data (profile, avatar, likes, etc.) is stored on the server;
