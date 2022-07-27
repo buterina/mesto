@@ -27,7 +27,7 @@
 
 ## Demo:
 
-https://buterina.github.io/mesto/
+https://places-buterina.netlify.app
 
 ## Clone:
 
