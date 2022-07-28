@@ -1,7 +1,8 @@
 {
+  "homepage": "https://buterina.github.io/mesto",
   "name": "mesto",
   "version": "1.0.0",
-  "description": "Место: проектная работа для Яндекс Практимума.",
+  "description": "Places: a project for Yandex Practicum",
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
@@ -18,7 +19,6 @@
   "bugs": {
     "url": "https://github.com/buterina/mesto/issues"
   },
-  "homepage": "https://github.com/buterina/mesto#readme",
   "devDependencies": {
     "@babel/core": "^7.17.5",
     "@babel/preset-env": "^7.16.11",
