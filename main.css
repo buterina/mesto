@@ -5,7 +5,7 @@
 .main{flex:1 1 auto}
 .header{border-bottom:1px solid rgba(84,84,84,.7);display:flex;margin:0;padding:45px 0 41px}@media screen and (max-width:900px){.header{margin:0 24px}}@media screen and (max-width:425px){.header{margin:0;padding:28px 0 31.6px}}
 .logo{transition:opacity .3s linear}.logo:hover{opacity:.6}
-.logo__image{width:142px}@media screen and (max-width:425px){.logo__image{margin-left:27px;width:103.74px}}
+.logo__image{width:160px}@media screen and (max-width:425px){.logo__image{margin-left:27px;width:103.74px}}
 .profile{display:flex;justify-content:space-between;margin:0 auto;max-width:880px;padding:39px 0 47px}@media screen and (max-width:1000px){.profile{margin:0 24px}}@media screen and (max-width:850px){.profile{align-items:center;flex-direction:column;justify-content:center;padding-bottom:36px}}
 .profile__add-button{align-self:center;background-color:transparent;background-image:url(d86bb2edc2f6eadb96b7.svg);background-position:50%;background-repeat:no-repeat;background-size:22px;border:2px solid #fff;box-sizing:border-box;cursor:pointer;height:50px;margin:0;padding:0;transition:opacity .3s linear;width:150px}.profile__add-button:hover{opacity:.6}@media screen and (max-width:850px){.profile__add-button{margin-top:36px;width:282px}}
 .profile__avatar{border-radius:50%;height:120px;margin-right:40px;-o-object-fit:cover;object-fit:cover;width:120px;z-index:0}@media screen and (max-width:850px){.profile__avatar{margin:0 0 22px}}
